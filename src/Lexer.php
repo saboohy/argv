@@ -2,6 +2,7 @@
 
 namespace Saboohy\Argv;
 
+use Saboohy\Argv\Token;
 use Saboohy\Argv\Enum\TokenEnum;
 use Saboohy\Argv\Exception\UnexpectedCharacterException;
 
@@ -47,11 +48,15 @@ class Lexer
 
             unset($matches[0]);
             
-            $tokens = array_filter($matches, function($value, $key) {
+            $filtered = array_filter($matches, function($value, $key) {
                 return !is_int($key) && $value !== "";
             }, ARRAY_FILTER_USE_BOTH);
 
-            $this->tokens[$index] = $tokens;
+            $this->tokens[$index] = array_map(
+                fn($key, $val) => new Token(type: $key, value: $val),
+                array_keys($filtered),
+                $filtered
+            );;
         }
     }
 

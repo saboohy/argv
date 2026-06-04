@@ -7,6 +7,7 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestDox;
 use Saboohy\Argv\Lexer;
 use Saboohy\Argv\Exception\UnexpectedCharacterException;
+use Saboohy\Argv\Token;
 
 final class LexerTest extends TestCase
 {
@@ -37,23 +38,23 @@ final class LexerTest extends TestCase
 
         $expectedResult = [
             0 => [
-                "T_LITERAL_0" => "test:it"
+                new Token(type: "T_LITERAL_0", value: "test:it")
             ],
             1 => [
-                "T_LITERAL_0" => "with_argument"
+                new Token(type: "T_LITERAL_0", value: "with_argument")
             ],
             2 => [
-                "T_DASH" => "--",
-                "T_LITERAL_0" => "with-opt",
-                "T_EQUAL" => "=",
-                "T_LITERAL_1" => "value"
+                new Token(type: "T_DASH", value: "--"),
+                new Token(type: "T_LITERAL_0", value: "with-opt"),
+                new Token(type: "T_EQUAL", value: "="),
+                new Token(type: "T_LITERAL_1", value: "value"),
             ],
-            [
-                "T_DASH" => "-",
-                "T_LITERAL_0" => "with-flag"
+            3 => [
+                new Token(type: "T_DASH", value: "-"),
+                new Token(type: "T_LITERAL_0", value: "with-flag")
             ]
         ];
 
-        $this->assertSame($lexer->tokens(), $expectedResult);
+        $this->assertEquals($lexer->tokens(), $expectedResult);
     }
 }

@@ -61,7 +61,7 @@ class Lexer
     }
 
     /**
-     * Retrieves the generated tokens after lexical analysis.
+     * Returns the generated tokens after lexical analysis.
      * 
      * @return array
      */

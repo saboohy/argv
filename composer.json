@@ -4,7 +4,6 @@
     "keywords": ["php", "cli", "console", "argv"],
     "description": "A lightweight and developer-friendly PHP library for parsing command-line arguments.",
     "license": "MIT",
-    "version": "1.0.0",
     "readme": "https://github.com/saboohy/argv/blob/main/README.md",
     "homepage": "https://github.com/saboohy/argv",
     "authors": [

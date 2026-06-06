@@ -8,26 +8,36 @@ use Saboohy\Argv\Parser;
 class Input
 {
     /**
+     * The extracted command name, if present.
+     * 
      * @var ?string
      */
     private ?string $command = null;
 
     /**
+     * The associative array of parsed options.
+     * 
      * @var array
      */
     private array $options = [];
 
     /**
+     * The associative array of parsed flags.
+     * 
      * @var array
      */
     private array $flags = [];
 
     /**
+     * The list of standalone arguments, excluding the main command.
+     * 
      * @var array
      */
     private array $arguments = [];
 
     /**
+     * Initializes the input instance with raw vectors.
+     * 
      * @param array $vectors
      * 
      * @return void
@@ -38,6 +48,8 @@ class Input
     }
 
     /**
+     * Executes the internal lexical analysis and parsing to populate input data.
+     * 
      * @return void
      */
     private function init(): void
@@ -52,9 +64,20 @@ class Input
         $lexer->tokenize();
 
         $parser = new Parser($lexer->tokens());
+        $parser->parse();
+
+        $elements = $parser->elements();
+        $arguments = $elements["arguments"];
+
+        $this->options = $elements["options"];
+        $this->flags = $elements["flags"];
+        $this->command = $arguments[0] ?? null;
+        $this->arguments = array_slice($arguments, 1);
     }
 
     /**
+     * Returns the parsed command name.
+     * 
      * @return ?string
      */
     public function getCommand(): ?string
@@ -63,6 +86,8 @@ class Input
     }
 
     /**
+     * Returns the collection of parsed options.
+     * 
      * @return array
      */
     public function getOptions(): array
@@ -70,11 +95,21 @@ class Input
         return $this->options;
     }
 
+    /**
+     * Retrieves the collection of parsed flags.
+     * 
+     * @return array
+     */
     public function getFlags(): array
     {
         return $this->flags;
     }
 
+    /**
+     * Retrieves the list of parsed standalone arguments.
+     * 
+     * @return array
+     */
     public function getArguments(): array
     {
         return $this->arguments;

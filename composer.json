@@ -2,10 +2,10 @@
     "name": "saboohy/argv",
     "type": "library",
     "keywords": ["php", "cli", "console", "argv"],
-    "description": "",
+    "description": "A lightweight and developer-friendly PHP library for parsing command-line arguments.",
     "license": "MIT",
-    "version": "0.1.0",
-    "readme": "",
+    "version": "1.0.0",
+    "readme": "https://github.com/saboohy/argv/blob/main/README.md",
     "homepage": "https://github.com/saboohy/argv",
     "authors": [
         {
@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": ">=8.2"
+        "php": "^8.2"
     },
     "autoload": {
         "psr-4": {

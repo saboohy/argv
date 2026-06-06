@@ -3,7 +3,7 @@
 namespace Saboohy\Argv;
 
 use Saboohy\Argv\Token;
-use Saboohy\Argv\Enum\TokenEnum;
+use Saboohy\Argv\TokenEnum;
 use Saboohy\Argv\Exception\UnexpectedCharacterException;
 
 class Lexer

@@ -3,7 +3,6 @@
 namespace Saboohy\Argv;
 
 use Saboohy\Argv\Token;
-use Saboohy\Argv\TokenEnum;
 use Saboohy\Argv\Exception\UnexpectedCharacterException;
 
 class Lexer
@@ -32,10 +31,10 @@ class Lexer
     {
         $pattern = "/^" . sprintf(
             "%s?%s%s?%s?",
-            TokenEnum::T_DASH->pattern(),
-            TokenEnum::T_LITERAL_0->pattern(),
-            TokenEnum::T_EQUAL->pattern(),
-            TokenEnum::T_LITERAL_1->pattern()
+            "(?P<T_DASH>-{1,2})",
+            "(?P<T_LITERAL_0>[a-zA-Z0-9\-_:\.\/\\\\]*)",
+            "(?P<T_EQUAL>={1})",
+            "(?P<T_LITERAL_1>[a-zA-Z0-9\-_:\.\/\\\\]*)"
         ) . "$/";
 
         foreach ( $this->vectors as $index => $value ) {

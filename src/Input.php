@@ -72,7 +72,10 @@ class Input
         $this->options = $elements["options"];
         $this->flags = $elements["flags"];
         $this->command = $arguments[0] ?? null;
-        $this->arguments = array_slice($arguments, 1);
+
+        if ( count($arguments) > 1 ) {
+            $this->arguments = array_slice($arguments, 1);
+        }
     }
 
     /**

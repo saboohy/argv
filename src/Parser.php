@@ -39,85 +39,54 @@ final class Parser
 
                 $current = $listOfTokens[$position];
 
-                if ( $current->getType() === "T_DASH" && $current->getValue() === "--" ) {
-                    $position++;
-
-                    if ( !isset($listOfTokens[$position]) ) {
-                        throw new UnexpectedTokenException("Expected option key after '--'");
-                    }
-
-                    $optionKey = $listOfTokens[$position];
+                if ( $current->getType() === "T_OPTION_KEY" ) {
+                    $opt_key = $current->getValue();
 
                     $position++;
 
-                    if ( !isset($listOfTokens[$position]) ) {
+                    if ( !isset( $listOfTokens[$position] ) ) {
                         throw new UnexpectedTokenException(
-                            sprintf("Expected equal after '%s'", $listOfTokens[$position - 1]->getValue())
+                            sprintf("Expected value for option: %s ", $opt_key)
                         );
                     }
 
-                    $optionEqual = $listOfTokens[$position];
-
-                    if ( $optionEqual->getType() !== "T_EQUAL" ) {
-                        throw new UnexpectedTokenException(
-                            sprintf("Unexpected token '%s'", $optionEqual->getValue())
-                        );
-                    }
-
-                    $position++;
-
-                    if ( !isset($listOfTokens[$position]) ) {
-                        throw new UnexpectedTokenException(
-                            sprintf("Expected expression after '%s'", $listOfTokens[$position - 1]->getValue())
-                        );
-                    }
-
-                    $optionValue = $listOfTokens[$position];
-
-                    if ( $optionValue->getType() !== "T_LITERAL_1" ) {
-                        throw new UnexpectedTokenException("Unexpected token after '='");
-                    }
-
-                    $this->elements["options"][$optionKey->getValue()] = $optionValue->getValue();
-                }
-                else if ( $current->getType() === "T_DASH" && in_array($current->getValue(), ["-", "--"]) ) {
-                    $position++;
-
-                    if ( !isset($listOfTokens[$position]) ) {
-                        throw new UnexpectedTokenException(
-                            sprintf("Expected flag key after '%s'", $listOfTokens[$position - 1]->getValue())
-                        );
-                    }
-
-                    $flagKey = $listOfTokens[$position];
-
-                    if ( $flagKey->getType() !== "T_LITERAL_0" ) {
-                        throw new UnexpectedTokenException(
-                            sprintf("Unexpected token after '%s'", $listOfTokens[$position - 1]->getValue())
-                        );
-                    }
+                    $opt_value = $listOfTokens[$position]->getValue();
 
                     $position++;
 
                     if ( isset($listOfTokens[$position]) ) {
                         throw new UnexpectedTokenException(
-                            sprintf("Unexpected token after '%s'", $listOfTokens[$position - 1]->getValue())
+                            sprintf("Unexpected token after %s", $opt_key)
                         );
                     }
 
-                    $this->elements["flags"][$flagKey->getValue()] = true;
+                    $this->elements["options"][$opt_key] = $opt_value;
                 }
-                else if ( $current->getType() === "T_LITERAL_0" ) {
-                    $argumentKey = $listOfTokens[$position];
+                elseif ( $current->getType() === "T_FLAG_KEY" ) {
+                    $flag_key = $current->getValue();
+
                     $position++;
 
                     if ( isset($listOfTokens[$position]) ) {
                         throw new UnexpectedTokenException(
-                            sprintf("Unexpected token after '%s'", $listOfTokens[$position - 1]->getValue())
+                            sprintf("Unexpected token after %s", $flag_key)
                         );
                     }
 
-                    $this->elements["arguments"][] = $argumentKey->getValue();
+                    $this->elements["flags"][$flag_key] = true;
+                }
+                elseif ( $current->gettype() === "T_ARGUMENT" ) {
+                    $argument = $current->getValue();
+
+                    $position++;
+
+                    if ( isset($listOfTokens[$position]) ) {
+                        throw new UnexpectedTokenException(
+                            sprintf("Unexpected token after %s", $argument)
+                        );
+                    }
+
+                    $this->elements["arguments"][] = $argument;
                 }
 
                 $position++;

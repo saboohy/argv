@@ -38,20 +38,17 @@ final class LexerTest extends TestCase
 
         $expectedResult = [
             0 => [
-                new Token(type: "T_LITERAL_0", value: "test:it")
+                new Token(type: "T_ARGUMENT", value: "test:it")
             ],
             1 => [
-                new Token(type: "T_LITERAL_0", value: "with_argument")
+                new Token(type: "T_ARGUMENT", value: "with_argument")
             ],
             2 => [
-                new Token(type: "T_DASH", value: "--"),
-                new Token(type: "T_LITERAL_0", value: "with-opt"),
-                new Token(type: "T_EQUAL", value: "="),
-                new Token(type: "T_LITERAL_1", value: "value"),
+                new Token(type: "T_OPTION_KEY", value: "with-opt"),
+                new Token(type: "T_OPTION_VAL", value: "value")
             ],
             3 => [
-                new Token(type: "T_DASH", value: "-"),
-                new Token(type: "T_LITERAL_0", value: "with-flag")
+                new Token(type: "T_FLAG_KEY", value: "with-flag")
             ]
         ];
 

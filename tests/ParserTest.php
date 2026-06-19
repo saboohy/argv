@@ -18,9 +18,9 @@ final class ParserTest extends TestCase
     {
         $failTokens = [
             0 => [
-                new Token(type: "T_DASH", value: "-"),
-                new Token(type: "T_LITERAL_0", value: "flag"),
-                new Token(type: "T_EQUAL", value: "=")
+                new Token(type: "T_OPTION_KEY", value: "option"),
+                new Token(type: "T_OPTION_VAL", value: "value"),
+                new Token(type: "T_ARGUMENT", value: "test_arg")
             ]
         ];
 

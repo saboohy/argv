@@ -35,3 +35,9 @@ The format is based on Keep a Changelog.
 ### Removed
 
 * Removed legacy token types (`T_DASH`, `T_EQUAL`, `T_LITERAL_0`, `T_LITERAL_1`) from the parsing workflow.
+
+## [1.2.1] - 2026-06-25
+
+### Fixed
+- Prevented undefined `options` and `flags` parser keys from causing runtime errors when omitted from the parsed result.
+- Added fallback handling for missing `options` and `flags` values during `Input` initialization.

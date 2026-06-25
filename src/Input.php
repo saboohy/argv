@@ -69,8 +69,8 @@ class Input
         $elements = $parser->elements();
         $arguments = $elements["arguments"];
 
-        $this->options = $elements["options"];
-        $this->flags = $elements["flags"];
+        $this->options = $elements["options"] ?? null;
+        $this->flags = $elements["flags"] ?? null;
         $this->command = $arguments[0] ?? null;
 
         if ( count($arguments) > 1 ) {
